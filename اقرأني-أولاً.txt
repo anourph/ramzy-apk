@@ -1,0 +1,30 @@
+مشروع بناء تطبيق أندرويد (APK) لبرنامج تسجيل البيانات
+
+===== بناء الـ APK (من غير Android Studio) =====
+1) اعمل حساب مجاني على github.com.
+2) New repository (اسم أي حاجة، خليه Private لو تحب) > Create.
+3) اضغط "uploading an existing file" وارفع كل محتويات الفولدر ده (فك الضغط الأول).
+   مهم: لازم يترفع فولدر .github كمان. لو ما ظهرش، اعمله بإيدك:
+   Add file > Create new file > اكتب الاسم: .github/workflows/android.yml
+   والصق محتوى الملف من نفس الفولدر، ثم Commit.
+4) افتح تبويب Actions > Build APK > Run workflow، واستنى حوالي 5 دقايق لحد ما يبقى أخضر.
+5) افتح العملية اللي خلصت، ونزّل app-debug-apk من قسم Artifacts (هيتنزل zip فيه app-debug.apk).
+6) ابعت app-debug.apk للموبايل وثبّته (اسمح بالتثبيت من مصادر غير معروفة).
+
+===== الخطوة 1 (مرة واحدة): تجهيز جوجل شيت =====
+1) افتح sheets.google.com واعمل Spreadsheet جديد (سمّيه أي اسم).
+2) من القائمة: Extensions (الإضافات) > Apps Script.
+3) امسح الكود الموجود والصق محتوى ملف Code.gs كله، واضغط Save.
+4) اضغط Deploy > New deployment > اختار النوع Web app.
+   - Execute as: Me
+   - Who has access: Anyone
+   ثم Deploy.
+5) هيطلب صلاحيات: Authorize access > اختار حسابك > لو ظهرت «Google hasn't verified this app» اضغط Advanced ثم Go to ... (unsafe) ثم Allow.
+6) انسخ الـ Web app URL (بينتهي بـ /exec).
+
+===== الخطوة 2: الربط من البرنامج =====
+في البرنامج اضغط «الربط بجوجل شيت»، الصق الرابط، واضغط «حفظ وربط».
+اعمل نفس الشيء على اللابتوب والموبايل بنفس الرابط، وهيشتغلوا على نفس الشيت.
+- ما تشاركش الرابط مع حد، أي حد معاه الرابط يقدر يشوف ويضيف بيانات.
+- الشيت بتلاقيه في جوجل درايف، تقدر تحمله Excel من File > Download > .xlsx
+- لو غيرت أسماء الأعمدة من البرنامج، بيتحدث الشيت تلقائي.
