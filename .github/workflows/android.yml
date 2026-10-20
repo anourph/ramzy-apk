@@ -17,6 +17,15 @@ jobs:
           java-version: 17
       - run: npm install
       - run: npx cap add android
+      
+      # الخطوة الجديدة لتوزيع أيقونتك على فولدرات التطبيق
+      - run: |
+          for dir in mdpi hdpi xhdpi xxhdpi xxxhdpi; do
+            cp icon.png android/app/src/main/res/mipmap-$dir/ic_launcher.png || true
+            cp icon.png android/app/src/main/res/mipmap-$dir/ic_launcher_round.png || true
+            cp icon.png android/app/src/main/res/mipmap-$dir/ic_launcher_foreground.png || true
+          done
+          
       - run: npx cap sync android
       - run: chmod +x gradlew && ./gradlew assembleDebug
         working-directory: android
