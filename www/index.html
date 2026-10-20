@@ -46,11 +46,33 @@ tr.editing td{background:color-mix(in srgb,var(--acc) 12%,transparent)}
 dialog{border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);max-width:520px;width:calc(100% - 32px);padding:22px}
 dialog::backdrop{background:rgba(0,0,0,.45)}
 dialog h2{margin:0 0 8px;font-size:20px}
+
+/* إستايل شاشة التحميل الافتتاحية */
+#splashScreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 9999; display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: 40px 20px; transition: opacity 0.5s; }
+.splash-center { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+#splashLogo { max-width: 180px; max-height: 180px; margin-bottom: 25px; border-radius: 12px; }
+.spinner { width: 45px; height: 45px; border: 4px solid var(--line); border-top: 4px solid var(--acc); border-radius: 50%; animation: spin 1s linear infinite; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+.splash-foot { font-size: 13px; color: var(--mute); text-align: center; line-height: 1.6; font-family: "Segoe UI", Arial, sans-serif; direction: ltr; font-weight: 600; }
 </style>
 <!-- إضافة أداة الذكاء الاصطناعي لقراءة الصور -->
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
 </head>
 <body>
+
+<!-- شاشة التحميل الافتتاحية -->
+<div id="splashScreen">
+  <div></div>
+  <div class="splash-center">
+    <img src="logo.png" id="splashLogo" alt="TheConTent Logo" onerror="this.style.display='none'">
+    <div class="spinner"></div>
+  </div>
+  <div class="splash-foot">
+    Developed &amp; Designed by TheConTent<br>
+    &copy; 2026 TheConTent. All Rights Reserved.
+  </div>
+</div>
+
 <div class="wrap">
   <header>
     <h1>تسجيل البيانات</h1>
@@ -298,6 +320,15 @@ $("scanInput").onchange = function(e) {
     $("scanInput").value = "";
   });
 };
+
+// كود إخفاء شاشة التحميل الافتتاحية بعد 3 ثواني
+setTimeout(function(){
+  var sp = $("splashScreen");
+  if(sp) {
+    sp.style.opacity = "0";
+    setTimeout(function(){ sp.remove(); }, 500);
+  }
+}, 3000);
 
 document.addEventListener("visibilitychange",function(){if(!document.hidden)pull()});
 window.addEventListener("online",function(){pull()});
